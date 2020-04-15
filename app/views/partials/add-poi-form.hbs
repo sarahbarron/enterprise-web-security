@@ -1,0 +1,47 @@
+<!-- Form to Add a Point of Interest -->
+<section class="ui raised segment">
+    <h2><i class="teal large plus circle icon"></i>ADD A NEW POINT OF INTEREST</h2>
+    <form class="ui segment form" action="/addpoi" method="POST" enctype="multipart/form-data">
+        <div class="field">
+            <label>Name of POI</label>
+            <input type="text" name="name" placeholder="Give your POI a name here" required>
+        </div>
+
+        <div class="field">
+            <label>Category</label>
+
+            <select name="category" class="ui fluid dropdown">
+                {{#each categories}}
+                    <option value="{{name}}">{{name}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="field">
+            <label>Description</label>
+            <input type="text" name="description" placeholder="Give your POI a description"/>
+        </div>
+        <div class="field">
+            <label>Upload an Image</label>
+            <input type="file" name="image" accept="image/png, image/jpeg">
+        </div>
+        <div class="one field">
+            <label>Location</label>
+            <div class="two fields">
+                <div class="field">
+                    <label>Longitude</label>
+                    <input type="number" name="longitude" step="any" required>
+                </div>
+                <div class="field">
+                    <label>Latitude</label>
+                    <input type="number" name="latitude" step="any" required>
+                </div>
+            </div>
+        </div>
+        <section class="ui grid">
+            <div class="right floated column">
+                <button class="ui teal submit right floated button" value="Upload">Add POI</button>
+            </div>
+        </section>
+    </form>
+    {{> error }}
+</section>

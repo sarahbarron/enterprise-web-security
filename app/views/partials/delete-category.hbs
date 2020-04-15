@@ -1,0 +1,11 @@
+<!--partial to delete a category-->
+<section class="ui raised very padded container segment">
+    <h2><i class="red large trash alternate icon"></i>Delete Category</h2>
+
+    <form class="ui form" action="/delete-category" method="POST">
+        {{> filter-category}}
+        <button class="ui red right floated submit button" value="submit">Delete Category & Its associated POI's
+        </button>
+    </form>
+    {{> error }}
+</section>

@@ -1,0 +1,15 @@
+<!-- Navigation bar for an un-authenticated user-->
+<nav class="ui inverted menu">
+    <header class="header item">
+        <i class="teal large map marker alternate icon"></i>
+        <a href="/">Ireland Greenways & Trails</a>
+    </header>
+    <div class="right menu">
+        <a id="signup" class="item" href="/signup"> Signup</a>
+        <a id="login" class="item" href="/login"> Login</a>
+    </div>
+</nav>
+
+<script>
+    $("#{{_id}}").addClass("active teal item");
+</script>

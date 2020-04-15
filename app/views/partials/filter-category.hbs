@@ -1,0 +1,12 @@
+<!--partial for the internal section of the filter by category form-->
+<div class="field">
+    <label>Select a Category</label>
+    <select name="category" class="ui fluid dropdown">
+        <option value="{{defaultcategory.name}}"></option>
+        <option value="all">ALL CATEGORIES</option>
+        {{#each categories}}
+            <option value="{{name}}">{{name}}</option>
+        {{/each}}
+    </select>
+</div>
+

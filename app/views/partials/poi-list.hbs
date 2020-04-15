@@ -1,0 +1,18 @@
+<!-- Partial with a list of all users points of interest and menu to filter by category-->
+<section class="ui raised segment">
+    <div class="ui grid">
+        <aside class="ui four wide column">
+            <img src="../images/ballydawn.jpg" class="ui medium bordered image"/>
+            <img src="../images/railway.jpg" class="ui medium bordered image"/>
+            <img src="../images/waterford-greenway-sun.jpg" class="ui medium bordered image"/>
+            <img src="../images/copper-coast-2.jpg" class="ui medium bordered image"/>
+        </aside>
+        <article class="twelve wide column">
+            <div class="ui raised very padded container segment">
+                {{> filter-category-home}}
+            </div>
+            {{> poi-table }}
+            {{> error }}
+        </article>
+    </div>
+</section>

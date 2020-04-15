@@ -1,0 +1,159 @@
+{
+  "users": {
+    "_model": "User",
+    "homer": {
+      "firstName": "Homer",
+      "lastName": "Simpson",
+      "email": "homer@simpson.com",
+      "password": "secret",
+      "numOfPoi": 5,
+      "scope": "user"
+    },
+    "marge": {
+      "firstName": "Marge",
+      "lastName": "Simpson",
+      "email": "marge@simpson.com",
+      "password": "secret",
+      "numOfPoi": 4,
+      "scope": "admin"
+    },
+    "bart": {
+      "firstName": "Bart",
+      "lastName": "Simpson",
+      "email": "bart@simpson.com",
+      "password": "secret",
+      "numOfPoi": 5,
+      "scope": "user"
+    }
+  },
+  "category": {
+    "_model": "Category",
+    "waterford": {
+      "name": "WATERFORD GREENWAY"
+    },
+    "western": {
+      "name": "GREAT WESTERN GREENWAY"
+    },
+    "boyne": {
+      "name": "BOYNE GREENWAY"
+    },
+    "copper": {
+      "name": "COPPER COAST"
+    }
+  },
+  "poi": {
+    "_model": "Poi",
+    "suir": {
+      "name": "Suir Bridge",
+      "description": "The route offers a terrific view of the new River Suir road bridge. A major feature of the N25 Waterford Bypass is the 465m long cablestay bridge over the River Suir. This new crossing of the River Suir is to the west of Waterford City, and has a single pylon 112m high on the south side with a main span of 230m over the river.        ",
+      "latitude": 52.279270,
+      "longitude": -7.150474,
+      "user": "->users.marge",
+      "category": "->category.waterford"
+    },
+    "congrave": {
+      "name": "Mount Congreve",
+      "description": "The route passes the bottom of the Mount Congreve estate. Mount Congreve Gardens, just 10 minutes from Waterford city, is a great garden of the world – a 70 acre woodland garden with stunning views and 16 kilometres of paths to explore the gardens.\n\nDating back to the 1760s, Mount Congreve Estate was originally developed by John Congreve (a high sheriff of County Waterford) and designed by local Waterford architect, John Roberts. For an uninterrupted period of six generations, the Congreve family lived on the estate, until the passing of Mr. Ambrose Congreve C.B.E who died in 2011, aged 104.\n\nRepresenting more than 100 acres of formal and woodland gardens within the original 560 acre estate, Mount Congreve Gardens boast an incredible variety of rare and exotic, indigenous and non-native plants that thrive within their own microclimate.  In fact, the entire collection consists of over three thousand different trees and shrubs, more than two thousand Rhododendrons, six hundred Camellias, three hundred Acer cultivars, six hundred conifers, two hundred and fifty climbers and fifteen hundred herbaceous plants.\n\nEqually fascinating, are the secrets and innovative gardening techniques that have been passed down through the estate’s 250 year old horticultural history by people (both Congreve family members and resident gardeners) who truly understand how to work with nature. And so, these working gardens thrive within a living windbreak, along a natural incline, with the full benefit of acidic soil and sea air from the tidal River Suir; helped along by interventions that include self-irrigating conservatories and garden spaces, sheltered by beech trees walls.",
+      "latitude": 52.241090,
+      "longitude": -7.219084,
+      "user": "->users.bart",
+      "category": "->category.waterford"
+    },
+    "railway": {
+      "name": "Suir Valley Railway",
+      "description": "Experience the beauty of the Suir Valley from a period carriage and take in the wonderful panoramic views of the River Suir. This family friendly railway runs mostly along the picturesque banks of the River Suir offering views of the world famous Mount Congreve Gardens. This is an area rich in history and is only accessible by train.\nAt our train station, located just outside the village of Kilmeaden, a restored mark 2 railway carriage serves as the ticket office and shop. Light refreshments can be purchased, with indoor and outdoor seating available at the station. All facilities are wheelchair accessible.",
+      "latitude": 52.246973,
+      "longitude": -7.246926,
+      "user": "->users.homer",
+      "category": "->category.waterford"
+    },
+    "durrow": {
+      "name": "Durrow Viaduct",
+      "description": "Leaving Durrow (Shanacool) only a few hundred metres and you are at the lonely ruins of the Durrow and Stradbally Railway Station, a heave of activity in its heyday now coming alive again. We pass what looks like an old corrugated roofed shed which decades ago was a Dance Hall run by Willie Cronin, it must have many stories to tell! On another few hundred metres to Durrow Viaduct, another impressive stone bridge but what's unique about it is that it is a railway bridge over a road bridge over a river.\n\nDurrow House below and head eastwards through the lush countryside of Faha with the Comeragh Mountains shadowing us to the left. We are brought under the N25 national road at McGrath's Cross by means of a newly installed tunnel and it's onward for Kilmacthomas crossing the impressive curved viaduct that can only be really appreciated by coming down onto the path bringing you to the park below and looking back up.\n\nKilmacthomas with its milling history and home to Flahavans Porridge is making a big comeback with a powerful and highly driven local community ensuring that there will be a big welcome and plenty of facilities for the greenway users. The river Mahon flows under the viaduct and it's raging waters after a winter storm held back Oliver Cromwell's army in 1649 for three days who were rampaging through Munster, now the River Mahon has a more peaceful flow. Soon it's banks are going to be home to a new Whiskey Distillery.\n\nLeaving Kilmacthomas we head past the ruins of the Kilmacthomas Railway Station recently taken over by the community to renovate into a welcoming station for visitors. We travel another kilometre and we travel over the newly installed bridge across the N25 road which brings us into the Old Workhouse of Kilmacthomas also called the Union. Very interesting buildings here since 1850 which housed the destitute after the famine of the 1840's. The infirmary is here, the dormitories are here and even the small morgue is still here. It recalls a few sad times in our history but important history all the same. There is a large carpark here and there is bike hire available in the workhouse buildings and now there is a café/restaurant here called Coach House Coffee. Also Mayfield Birds of Prey are here. An interesting end to this stage of the Greenway.",
+      "latitude": 52.140285,
+      "longitude": -7.504665,
+      "user": "->users.bart",
+      "category": "->category.waterford"
+    },
+    "clonea": {
+      "name": "Clonea Strand",
+      "description": "Clonea Strand is a long, wide stretch of sandy beach about 10 minutes ’ drive from Dungarvan. It is considered my some to be among the best beaches on Ireland’s South East coast.\n\nPeople come here throughout the year for long walks, and to fly kites, taking in the expansive views over the sea and the Comeragh Mountains. In early 2017 a long walking and cycling track, the Waterford Greenway, was opened.  Formerly a disused railway line, this offers 46 km of paved walkway.  Part of the greenway runs behind the beach. \n\nIn summer the clean sands and enticing waves of Clonea Strand attract plenty of visitors, who come to sunbathe and play in the sands.  There are interesting rock pools scattered around the beach and children can find hours of entertainment looking for crabs and other interesting flora and fauna. The presence of a lifeguard during peak season makes this a popular spot for swimming and a variety of water sports.\n\nIt can get quite busy here when the weather warms up.",
+      "latitude": 52.097772,
+      "longitude": -7.540800,
+      "user": "->users.homer",
+      "category": "->category.waterford"
+    },
+    "achill": {
+      "name": "Achill",
+      "description": "Achill Island is the largest island in the Country (24km x 19km) and is accessible from the mainland by bridge. Its magnificent sandy beaches, sea cliffs and warm hospitality bring visitors back again and again for holidays.\n\nVisit the beautiful villages of Dooagh and Dooega, the high cliffs at Slievemore and Minaun, the magnificent beaches at Keel and Keem, under the Achill Head. The famous Atlantic Drive takes you on a journey of scenic splendour, a must for all visitors to Achill.\n\nAchill boasts no less than two adventure centres which offer the best in windsurfing, sailing, abseiling, diving and many other activities.\n\nThe Achill Seafood Festival has established itself as one of Mayo's best festival weekends. The Festival, which is held in July, offers the best in delicious gourmet seafood, with plenty of ceol, music agus craic in the many traditional pubs in the evenings. Scoil Acla is one of Ireland's oldest summer schools offering workshops in traditional music, creative writing, set dancing and Ceili Workshops. The summer school hosts art exhibitions, painting courses and of course, Gaeilge Acla - the Irish of Achill.",
+      "latitude": 53.909407,
+      "longitude": -9.783478,
+      "user": "->users.homer",
+      "category": "->category.western"
+    },
+    "mulranny": {
+      "name": "Mulranny",
+      "description": "Mulranny - in Irish ‘Maoil Raithne’ or ‘Malla Raithne’ (Hill of the Ferns) - is situated on the isthmus between Clew Bay and Blacksod Bay in County Mayo, Ireland, and is only 25 mins drive from Westport and within 15 mins drive of Achill Sound and Ballycroy National Park.\n\nMulranny has always been a popular tourist destination and this was further enhanced in May 2011 when the Great Western Greenway from Newport to Mulranny was crowned the Irish winner of the European Destination of Excellence (EDEN). In February 2011 Mulranny Tourism Committee submitted an application to participate in this prestigious EU competition, which is designed to encourage and promote sustainable tourism development models across the European Union.\n\nMayo TD Michael Ring, Minister of State for Tourism and Transport, congratulated the efforts of everyone involved in bringing such a high accolade to the area, saying this is \"a classic example of taking an underused local asset, looking at it in a new way and exploiting its full potential for the betterment of the local community and economy\".",
+      "latitude": 53.907539,
+      "longitude": -9.774235,
+      "user": "->users.bart",
+      "category": "->category.western"
+    },
+    "dominic": {
+      "name": "Dominics Park",
+      "description": "Saint Dominic’s Park is a 4.5 ha park located along the south banks of the river Boyne.  It is approximately 800m from Drogheda’s main street. The site is located outside the old walls of Drogheda and located on low-lying lands, partly liable to flooding. The council purchased the land in 1900’s  and , in later years the land was coveted into park.",
+      "latitude": 53.715108,
+      "longitude": -6.361528,
+      "user": "->users.bart",
+      "category": "->category.boyne"
+    },
+    "canal": {
+      "name": "Boyne Canal",
+      "description": "The Boyne Canal system is a series of canals running 31km (19 miles) parallel to the River Boyne from Oldbridge (Battle of the Boyne site) to the town of Navan. The canal system was used by horse drawn boats travelling between Navan, Slane and the port of Drogheda.\n\nThere are two sections in the canal system; the lower canals from Oldbridge, Drogheda, near mouth of the Boyne, to Slane and the upper canals from Slane to Navan. The navigation channel is partly the river Boyne with a series of canals, mostly on the south side of the river Boyne. The Boyne Canal system is referred to as the Boyne Navigation because stretches of the river Boyne are utilised along the route.\n\nThe designers intended that the canal system continue upstream along the Boyne to Trim where it could connect with the Royal Canal. The section from Navan to Trim was never built and the Boyne Canal system remains disconnected from other inland waterways in Ireland.\n\nThe Boyne Navigation Company began work on the lower section of canals from the sea lock at Oldbridge to Slane in 1748 and was completed in the 1760s. The upper section from Slane to Navan was completed in 1800. The main cargo carried was grain and flour between the mills on the river and the port of Drogheda and coal in the other direction.\n\n",
+      "longitude": -6.401370,
+      "latitude": 53.718246,
+      "user": "->users.marge",
+      "category": "->category.boyne"
+    },
+    "battle": {
+      "name": "Battle of the Boyne Visitor Centre",
+      "description": "The Battle of the Boyne Visitor Centre is located in the recently restored 18th century Oldbridge House in Meath, the site of a famous historic battle in the 17th century.\n\nVisitors to the centre will discover the story of this infamous historic battle between two kings that occurred on 1 July 1690 (or 11 July, according to our modern calendar). At this battle site on the banks of the River Boyne, two rival monarchs, King James II and his son-in-law William III, clashed violently with fearful consequences.\n\nBoth kings commanded their armies in person. William had 36,000 troops and James had 25,000, the largest number of soldiers ever deployed on an Irish battlefield. At stake were the British throne, French dominance in Europe and religious power in Ireland, making it a significant chapter in Irish history.\n\nToday the modern visitor centre is located in the restored Oldbridge House. The nearby Townley Hall Woods Trail takes visitors through King William's Glen where the Williamite troops were ultimately victorious at the Battle of the Boyne. Optional self-guided walks are available through the core battle site and Oldbridge Estate.",
+      "latitude": 53.723579,
+      "longitude": -6.418965,
+      "user": "->users.homer",
+      "category": "->category.boyne"
+    },
+    "garrarus": {
+      "name": "Garrarus Strand",
+      "description": "Outline Geosite Description\nThe site includes the foreshore and coastal cliffs both east and west of Garrarus Strand.\n\nGeological System/Age and Primary Rock Type\nThe bedrock is all of Ordovician age, from about 460 million years ago. The soft sediments overlying bedrock were deposited by ice during the Quaternary (Ice Age).\n\nMain Geological or Geomorphological Interest\nThe cliffs in this bay include a wide range of rock types and different formations with faults separating and repeating units. There are baked black shales, pale rhyolite intrusions, limestone of the Tramore Limestone Formation and many intrusions of andesite volcanic rock.\n\nAt each end of the beach large channels eroded out of the bedrock are seen in section, and are filled with glacial till.\n\nSite Importance\nThe site is part of the complex of sites along the Copper Coast, which collectively are of national importance and which are already part of a proposed NHA (Ballyvoyle Head to Tramore No 1693).\n\nAccess and Safety\nThe beach has safe access and parking and the rocks are accessible along the beach. If venturing beyond the beach, caution must be taken in relation to the tides, but at low tide it is possible to traverse westwards along to Kilfarrasy.",
+      "longitude": -7.202848,
+      "latitude": 52.135596,
+      "user": "->users.marge",
+      "category": "->category.copper"
+    },
+    "tankardstown": {
+      "name": "Tankardstown",
+      "description": "Geosite Description\nTankardstown is one of the main complexes on the Copper Coast of mineralised rock that has been mined in the 19th century for copper ores. The site includes the industrial heritage buildings as well as the mineral veins and old mine workings.\n\nGeological System/Age and Primary Rock Type\nThe great diversity of minerals recorded here are hosted in Ordovician volcanic rocks, but the minerals are a mixture of different ages. The primary ores, probably of Devonian age, occur in veins, which cut across and through the volcanics. There may be some minerals associated with the volcanic eruptions themselves too. However, the most spectacular minerals in Tankardstown mine are secondary minerals derived from oxidation or weathering of the primary ores, and are therefore quite recent, developing since mining ceased.\n\nMain Geological or Geomorphological Interest Tankardstown is of particular interest for the diversity of minerals it has, some of which are rare. There are at least 36 different minerals recorded from Waterford Copper Coast mines, such as arsenopyrite, azurite, barite, bornite, botallackite, brochantite, chalcopyrite, chrysocolla, cobalt arsenides, connellite, copper, cuprite, dolomite, epidote, erythrite, galena, langite, malachite, pyrite, siderite, sphalerite, tennantite and tetrahedrite, many of which are found at Tankardstown. The finest examples at Tankardstown are of brochantite and the flowstones of langite/brochantite. The minerals are contained in primary veins, secondary weathered zones called gossans and as spectacular flowstone type deposits in the abandoned mine workings.\n\nOf considerable value to the Copper Coast Geopark is the iconic remains of an engine house on the northern side of the road. These have been conserved and interpreted with the aid of the Mining Heritage Trust of Ireland and are safe for visitors to explore and enjoy.\n\nSite Importance\nThe site is of national importance for its mineralogy. The site is part of the complex of sites along the Copper Coast, which collectively are of national importance and which are already part of a proposed NHA (Ballyvoyle Head to Tramore No 1693).\n\nAccess and Safety\n\nThe Engine House at Tankardstown is publicly accessible and features car parking and interpretation signage.\n\nAt present the Tankardstown Mine workings themselves are inaccessible without specialist equipment or permissions.Underground mine workings such as these are the responsibility of the Minister for Communications, Energy and Natural Resources and permission must be sought for entry or any intervention.",
+      "longitude": -7.343229,
+      "latitude": 52.139762,
+      "user": "->users.marge",
+      "category": "->category.copper"
+    },
+    "ballydawn": {
+      "name": "Ballydawn Bay",
+      "description": "Ballydwan Bay\nOutline Geosite Description\nThe site comprises cliffs in a coastal embayment.\n\nGeological System/Age and Primary Rock Type\nDevonian age conglomerates and sandstones are the main rock types seen in the bay, but they are in unconformable contact with Ordovician andesite volcanic rock towards the eastern end.\n\nMain Geological or Geomorphological Interest\nHigh, vertical cliffs at the back of the beach in Ballydwan Bay are composed of conglomerate and sandstone rocks of Devonian age. These are red in colour and have abundant pebbles of white vein quartz within them.\n\nA feature of particular interest is seen at the eastern end of the beach. The red conglomerates are seen in an unconformable contact with Ordovician volcanic rock. This reflects a time gap of about 80 million years, and the red rocks were deposited by rivers on a weathered land surface of Ordovician volcanic andesite rocks. Lumps of the greenish andesite can be seen in the conglomerates near the unconformity.\n\nAt the southwest corner of the bay there is a fault and is now the location of a landslip. Another is found at the eastern end of the beach. In the sea stack towards the eastern end of the beach, there is a ventilation shaft dug to get air into 18th century silver mines, which were dug below the seabed. This is now filled with sand.\n\nSite Importance\nThe site is part of the complex of sites along the Copper Coast, which collectively are of national importance and which are already part of a proposed NHA (Ballyvoyle Head to Tramore No 1693).\n\nAccess and Safety The beach is accessible with a public road and a car park to a narrow slipway",
+      "longitude": -7.411408,
+      "latitude": 52.130544,
+      "user": "->users.bart",
+      "category": "->category.copper"
+    },
+    "stradbally": {
+      "name": "Stradbally Cove",
+      "description": "Stradbally Cove\nOutline Geosite Description\nLow cliffs beside the sandy beach on the western side of Stradbally Cove.\n\nGeological System/Age and Primary Rock Type\nOrdovician sedimentary rocks such as slates and mudstones are intruded by thin units of volcanic rocks like andesite.\n\nMain Geological or Geomorphological Interest\nThere are indications the sediments were still wet or only partially consolidated when the lavas were injected into them and so there is disturbance of the sediments. Some later minor faults are seen by their associated veins of white quartz. Other sedimentary features provide evidence of earthquakes and quiet periods in between.\n\nThere is also a lime kiln here for use with coal and limestone brought in by boat.\n\nSite Importance\nThe site is part of the complex of sites along the Copper Coast, which collectively are of national importance and which are already part of a proposed NHA (Ballyvoyle Head to Tramore No 1693).\n\nAccess and Safety\nThe beach access allows easy and safe access to the rocks. The Copper Coast Geopark has emplaced some picnic seats and a table made of stone, and explanatory signboards.",
+      "longitude": -7.460399,
+      "latitude": 52.125079,
+      "user": "->users.homer",
+      "category": "->category.copper"
+    }
+  }
+}

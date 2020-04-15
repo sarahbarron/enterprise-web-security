@@ -1,0 +1,28 @@
+<!-- Update point of interest page - with form form to update details
+ a list of images that can be deleted and a form for a user to add new images-->
+{{> mainmenu }}
+{{> update-poi-form}}
+
+<div class="horizontal rule"></div>
+    <section class="ui 15 column middle aligned grid raised segment">
+    <!-- If there are no images don't show the delete images section -->
+    {{#if poi.image}}
+        <div class="row">
+            <div class="column two wide"><i class="teal huge trash alternate icon"></i></div>
+            <div class="column ten wide"><h2>Delete Unwanted Images</h2></div>
+        </div>
+        <div class="row">
+            {{#each poi.image}}
+                {{> image-card}}
+            {{/each}}
+        </div>
+     {{/if}}
+    </section>
+<div class="horizontal rule"></div>
+
+{{> add_images}}
+<section class="ui grid">
+    <div class="right floated column">
+            <a href="/delete-poi/{{poi._id}}" class="ui right floated red button">Delete POI</a>>
+    </div>
+</section>

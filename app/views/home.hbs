@@ -1,0 +1,11 @@
+<!-- Home page for an authenticated user with a list of pois and a form to add a poi-->
+{{> mainmenu _id="home"}}
+
+<section class="ui raised segment">
+    <div class="ui very padded grid">
+        <h2><i class="teal large hiking icon"></i>List of {{firstName}} {{lastName}}'s Points Of Interest</h2>
+    </div>
+    {{> poi-list}}
+    <div class="ui  divider"></div>
+    {{> add-poi-form}}
+</section>

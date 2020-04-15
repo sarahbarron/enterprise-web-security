@@ -1,0 +1,29 @@
+<!--Partial for viewing a list of users -->
+<section class="ui raised segment">
+    <h2><i class="teal large user icon"></i>List of Users</h2>
+    {{#each users}}
+        <div class="ui raised segment">
+            <div class="ui grid">
+                <div class="row">
+                    <div class="column ">
+                        <i class=" huge icon github"></i>
+                    </div>
+                    <div class="column four wide">
+                        {{!-- first and last name --}}
+                        <h2 class="ui header purple">
+                            <a href="/view-user/{{_id}}">{{firstName}} {{lastName}}</a>
+                        </h2>
+                        {{!-- number of assessments --}}
+                        <p> number of poi: {{numOfPoi}} </p>
+                    </div>
+                    <div class="column">
+                        {{!-- Icon with a link to delete a member --}}
+                        <a href="/delete-user/{{_id}}" class="ui icon button">
+                            <i class="red icon trash"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/each}}
+</section>

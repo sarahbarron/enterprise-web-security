@@ -1,0 +1,49 @@
+<!-- Partial showing the form for updating a single Point of Interest details-->
+<section class="ui raised segment">
+    <div class="ui grid row">
+        <div class="column two wide"><i class="teal huge sync icon"></i></div>
+        <div class="column ten wide"><h2>Update Point Of Interst</h2></div>
+    </div>
+    <div class="ui grid row">
+        <div class="column 12 wide">
+            <form class="ui segment form" action="/update-poi/{{poi._id}}" method="POST">
+                <div class="field">
+                    <label>Name of POI</label>
+                    <input type="text" name="name" value="{{poi.name}}" required>
+                </div>
+                <div class="field">
+                    <label>Category</label>
+                    <select name="category" class="ui fluid dropdown" value="{{poi.category.name}}">
+                        <option value="{{poi.category.name}}"></option>
+                        {{#each categories}}
+                            <option value="{{name}}">{{name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Description</label>
+                    <input type="text" name="description" value="{{poi.description}}"/>
+                </div>
+                <div class="one field">
+                    <label>Location</label>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Longitude</label>
+                            <input type="number" name="longitude" step="any" value="{{poi.longitude}}" required>
+                        </div>
+                        <div class="field">
+                            <label>Latitude</label>
+                            <input type="number" name="latitude" step="any" value="{{poi.latitude}}" required>
+                        </div>
+                    </div>
+                </div>
+                <section class="ui grid">
+                    <div class="right floated column">
+                        <button class="ui teal right floated submit button" value="Submit">UPDATE</button>
+                    </div>
+                </section>
+            </form>
+        </div>
+    </div>
+    {{> error }}
+</section>

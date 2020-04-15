@@ -1,0 +1,22 @@
+<!-- Partial with a form to add images -->
+<section class="ui 15 column middle aligned grid raised segment">
+    <div class="row">
+        <div class="column two wide"><i class="teal huge image icon"></i></div>
+        <div class="column thirteen wide"><h2>Add A New Image To The Gallery</h2></div>
+    </div>
+    <div class="row">
+        <div class="column two wide"></div>
+
+        <form class="ui form" action="/addimage/{{poi._id}}" method="POST" enctype="multipart/form-data">
+            <div class="inline field">
+                <input type="file" name="image" accept="image/png, image/jpeg" required>
+                <button class="ui teal right floated submit button" value="Upload">Add Image</button>
+            </div>
+
+
+        </form>
+    </div>
+    {{> error }}
+    </div>
+</section>
+

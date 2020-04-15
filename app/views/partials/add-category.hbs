@@ -1,0 +1,14 @@
+<!--Partial with  form to add a category -->
+<section class="ui raised very padded container segment">
+    <h2><i class="teal large plus circle icon"></i>Add A New Category</h2>
+
+    <form class="ui form" action="/add-category" method="POST">
+        <div class="field">
+            <label>Category Name</label>
+            <input type="text" name="name" placeholder="Type your POI a name here" required>
+        </div>
+        <button class="ui teal right floated submit button" value="submit">Add Category</button>
+    </form>
+
+    {{> error }}
+</section>

@@ -1,0 +1,26 @@
+<!-- Categories page shows a form to add a category, delete a category, filter by category and a list of
+all users points of interest. This is only accessible by the Admin-->
+{{> mainmenu _id="categories"}}
+
+<section class="ui raised segment">
+    <div class="ui very padded grid">
+        <h2><i class="teal large hiking icon"></i>Categories</h2>
+    </div>
+
+    <div class="ui raised very padded container segment">
+        <h2><i class="teal large filter icon"></i>Filter POI's By Category</h2>
+        <form class="ui form" action="/filter-category" method="POST">
+            {{> filter-category}}
+            <button class="ui teal submit right floated button" value="Submit">Filter by Category</button>
+        </form>
+        {{> poi-table}}
+    </div>
+    <div class="ui grid">
+        <div class="eight wide column">
+            {{> add-category}}
+        </div>
+        <div class="eight wide column">
+            {{> delete-category}}
+        </div>
+    </div>
+</section>
