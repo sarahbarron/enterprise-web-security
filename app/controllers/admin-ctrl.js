@@ -1,11 +1,7 @@
 'use strict';
 const User = require('../models/user');
-const Boom = require('@hapi/boom');
-const Joi = require('@hapi/joi');
 const Utils = require('../utils/isAdmin');
-const PointOfInterest = require('../models/poi');
-const PoiUtils = require('../utils/poi-util');
-const Category = require('../models/categories');
+
 
 /*
 The Admin controller controls for user Users - the Admin can view

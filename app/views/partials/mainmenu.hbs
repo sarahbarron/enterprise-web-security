@@ -2,15 +2,10 @@
 <nav class="ui inverted menu">
     <header class="header item">
         <i class="teal large map marker alternate icon"></i>
-        <a href="/home">Irish Greenways & Trails</a>
+        <a href="/home">Apex Gym Classes</a>
     </header>
     <div class="right menu">
         <a id="home" class="item" href="/home">Home</a>
-<!--        Only an Admin can view these two links-->
-        {{#if isadmin}}
-            <a id="users" class="item" href="/admin-dashboard">View Users</a>
-            <a href="/categories" id="categories" class="item">Categories</a>
-        {{/if}}
         <a id="settings" class="item" href="/settings"> <i class="icon user"></i></a>
         <a id="logout" class="item" href="/logout">Logout</a>
     </div>

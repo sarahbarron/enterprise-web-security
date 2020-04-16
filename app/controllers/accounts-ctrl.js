@@ -15,7 +15,15 @@ const Accounts = {
         auth: false,
         handler: function (request, h)
         {
-            return h.view('main', {title: 'Welcome to Points of Interest'});
+            return h.view('main', {title: 'Welcome to Apex Gym'});
+        }
+    },
+
+    // home page after authentication
+    home: {
+        handler: function (request, h)
+        {
+            return h.view('home', {title: 'Apex Gym Authenticated'});
         }
     },
 
@@ -25,7 +33,8 @@ const Accounts = {
         auth: false,
         handler: function (request, h)
         {
-            return h.view('signup', {title: 'Sign up for Points of Interest'});
+            return h.view('signup', {title: 'Sign up for Apex Gym' +
+                  ' Classes'});
         }
     },
 
@@ -42,9 +51,12 @@ const Accounts = {
             payload: {
                 firstName: Joi.string().required(),
                 lastName: Joi.string().required(),
+                address: Joi.string().required(),
+                telephone: Joi.number().required(),
                 email: Joi.string()
                     .email()
                     .required(),
+                medical: Joi.string().required(),
                 password: Joi.string().required(),
             },
             options: {
@@ -78,9 +90,11 @@ const Accounts = {
                 const newUser = new User({
                     firstName: payload.firstName,
                     lastName: payload.lastName,
+                    address: payload.address,
+                    telephone: payload.telephone,
                     email: payload.email,
+                    medical: payload.medical,
                     password: payload.password,
-                    numOfPoi: 0,
                     scope: ['user']
                 });
 
@@ -107,7 +121,8 @@ const Accounts = {
         auth: false,
         handler: function (request, h)
         {
-            return h.view('login', {title: 'Login to Points of Interest'});
+            return h.view('login', {title: 'Login to Apex Gym' +
+                  ' Classes'});
         }
     },
 
@@ -195,7 +210,7 @@ const Accounts = {
                 const isadmin = Utils.isAdmin(scope);
 
                 return h.view('settings', {
-                    title: 'Donation Settings',
+                    title: 'Client Settings',
                     user: user,
                     isadmin: isadmin
                 });
@@ -213,9 +228,12 @@ const Accounts = {
             payload: {
                 firstName: Joi.string().required(),
                 lastName: Joi.string().required(),
+                address: Joi.string().required(),
+                telephone: Joi.string().required(),
                 email: Joi.string()
                     .email()
                     .required(),
+                medical: Joi.string().required(),
                 password: Joi.string().required()
             },
             options: {
@@ -244,7 +262,10 @@ const Accounts = {
                 const user = await User.findById(id);
                 user.firstName = userEdit.firstName;
                 user.lastName = userEdit.lastName;
+                user.address = userEdit.address;
+                user.telephone = userEdit.telephone;
                 user.email = userEdit.email;
+                user.medical = userEdit.medical;
                 user.password = userEdit.password;
                 await user.save();
                 return h.redirect('/settings');

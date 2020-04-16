@@ -11,9 +11,11 @@ const Boom = require('@hapi/boom');
 const userSchema = new Schema({
     firstName: String,
     lastName: String,
+    address: String,
+    telephone: Number,
     email: String,
+    medical: String,
     password: String,
-    numOfPoi: Number,
     scope: Array
 });
 

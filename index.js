@@ -1,8 +1,8 @@
 'use strict';
 
 // Only need for local development
-// const dotenv = require('dotenv')
-const ImageStore = require('./app/utils/image-store');
+const dotenv = require('dotenv')
+
 const Hapi = require('@hapi/hapi');
 
 const server = Hapi.server({
@@ -13,20 +13,14 @@ const server = Hapi.server({
 require('./app/models/db');
 server.validator(require('@hapi/joi'));
 
-// Cloudinary Credentials
-const credentials = {
-    cloud_name: process.env.CLOUDINARY_NAME,
-    api_key: process.env.CLOUDINARY_KEY,
-    api_secret: process.env.CLOUDINARY_SECRET
-};
 
 // Only need for local development
 // if the .env file cant be found handle the error
-// const result = dotenv.config();
-// if (result.error) {
-//     console.log(result.error.message);
-//     process.exit(1);
-// }
+const result = dotenv.config();
+if (result.error) {
+    console.log(result.error.message);
+    process.exit(1);
+}
 
 async function init() {
     // Register plugins
@@ -34,8 +28,6 @@ async function init() {
     await server.register(require('@hapi/vision'));
     await server.register(require('@hapi/cookie'));
 
-    // Configure Cloudinary
-    ImageStore.configure(credentials);
 
     // setup the paths to views, layouts and partials &
     // set the templating engine to handlebars

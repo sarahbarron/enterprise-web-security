@@ -14,7 +14,16 @@
                         </div>
                     </div>
                     <div class="field">
+                        <label>Address</label> <input value="{{user.address}}" type="text" name="address">
+                    </div>
+                    <div class="field">
+                        <label>Telephone</label> <input value="{{user.telephone}}" type="number" name="telephone">
+                    </div>
+                    <div class="field">
                         <label>Email</label> <input value="{{user.email}}" type="text" name="email">
+                    </div>
+                    <div class="field">
+                        <label>Medical History</label> <input value="{{user.medical}}" type="text" name="medical">
                     </div>
                     <div class="field">
                         <label>Password</label> <input value="{{user.password}}" type="password" name="password">
@@ -24,6 +33,6 @@
                 {{> error}}
             </div>
         </div>
-        <aside class="ui five wide column"><img src="images/waterford_greenway.jpg" class="ui medium image"/></aside>
+        <aside class="ui five wide column"><img src="images/gym.jpg" class="ui medium image"/></aside>
     </div>
 </section>
