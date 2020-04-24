@@ -21,7 +21,7 @@ const Accounts = {
 
     // home page after authentication
     home: {
-        handler: function (request, h)
+        handler: async function (request, h)
         {
             const id = request.auth.credentials.id;
             const user = await User.findById(id).lean();
