@@ -23,7 +23,11 @@ const Accounts = {
     home: {
         handler: function (request, h)
         {
-            return h.view('home', {title: 'Apex Gym Authenticated'});
+            const id = request.auth.credentials.id;
+            const user = await User.findById(id).lean();
+            return h.view('home', {
+                user: user,
+                title: 'Apex Gym Authenticated'});
         }
     },
 
