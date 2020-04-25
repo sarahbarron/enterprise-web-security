@@ -104,7 +104,7 @@ const Accounts = {
 
                 user = await newUser.save();
 
-                /* Cookie with user id an scope created (scope is
+                /* Cookie with user id and scope created (scope is
                  either admin or user */
                 request.cookieAuth.set({
                     id: user.id,

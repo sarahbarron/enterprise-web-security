@@ -47,7 +47,7 @@ async function init() {
     // Initialize the cookie plugin
     server.auth.strategy('session', 'cookie', {
         cookie: {
-            name: 'poi',
+            name: 'cookie',
             password: process.env.COOKIE_PASSWORD,
             isSecure: false
         }
