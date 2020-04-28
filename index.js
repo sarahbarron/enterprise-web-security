@@ -1,12 +1,19 @@
 'use strict';
 
 // Only need for local development
-//const dotenv = require('dotenv')
+const dotenv = require('dotenv')
 
 const Hapi = require('@hapi/hapi');
 
+const fs = require('fs');
+
 const server = Hapi.server({
-    port: process.env.PORT || 3000,
+    // port: process.env.PORT || 3000,
+    port: 3443,
+    tls: {
+        key: fs.readFileSync('keys/private/webserver.key'),
+        cert: fs.readFileSync('keys/webserver.crt')
+    }
 });
 
 // db.js creates a connection to the mongo database
@@ -16,11 +23,11 @@ server.validator(require('@hapi/joi'));
 
 // Only need for local development
 // if the .env file cant be found handle the error
-//const result = dotenv.config();
-//if (result.error) {
-//     console.log(result.error.message);
-//     process.exit(1);
-//}
+const result = dotenv.config();
+if (result.error) {
+    console.log(result.error.message);
+    process.exit(1);
+}
 
 async function init() {
     // Register plugins

@@ -3,6 +3,8 @@ const User = require('../models/user');
 const Boom = require('@hapi/boom');
 const Joi = require('@hapi/joi');
 const Utils = require('../utils/isAdmin');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 /*
 Accounts Controller contains controllers for signup, login,
@@ -13,21 +15,22 @@ const Accounts = {
     // First welcome page controller
     index: {
         auth: false,
-        handler: function (request, h)
-        {
-            return h.view('main', {title: 'Welcome to Apex Gym'});
+        handler: function (request, h) {
+            return h.view('main', {
+                title: 'Welcome to Apex Gym'
+            });
         }
     },
 
     // home page after authentication
     home: {
-        handler: async function (request, h)
-        {
+        handler: async function (request, h) {
             const id = request.auth.credentials.id;
             const user = await User.findById(id).lean();
             return h.view('home', {
                 user: user,
-                title: 'Apex Gym Authenticated'});
+                title: 'Apex Gym Authenticated'
+            });
         }
     },
 
@@ -35,10 +38,11 @@ const Accounts = {
     showSignup: {
 
         auth: false,
-        handler: function (request, h)
-        {
-            return h.view('signup', {title: 'Sign up for Apex Gym' +
-                  ' Classes'});
+        handler: function (request, h) {
+            return h.view('signup', {
+                title: 'Sign up for Apex Gym' +
+                    ' Classes'
+            });
         }
     },
 
@@ -66,8 +70,7 @@ const Accounts = {
             options: {
                 abortEarly: false
             },
-            failAction: function (request, h, error)
-            {
+            failAction: function (request, h, error) {
                 return h
                     .view('signup', {
                         title: 'Sign up error',
@@ -78,18 +81,17 @@ const Accounts = {
             }
         },
 
-        handler: async function (request, h)
-        {
-            try
-            {
+        handler: async function (request, h) {
+            try {
                 const payload = request.payload;
                 let user = await User.findByEmail(payload.email);
 
-                if (user)
-                {
+                if (user) {
                     const message = 'Email address is already registered';
                     throw Boom.badData(message);
                 }
+
+                const hash = await bcrypt.hash(payload.password, saltRounds);
 
                 const newUser = new User({
                     firstName: payload.firstName,
@@ -98,7 +100,7 @@ const Accounts = {
                     telephone: payload.telephone,
                     email: payload.email,
                     medical: payload.medical,
-                    password: payload.password,
+                    password: hash,
                     scope: ['user']
                 });
 
@@ -113,9 +115,12 @@ const Accounts = {
 
                 return h.redirect('/home');
 
-            } catch (err)
-            {
-                return h.view('signup', {errors: [{message: err.message}]});
+            } catch (err) {
+                return h.view('signup', {
+                    errors: [{
+                        message: err.message
+                    }]
+                });
             }
         }
     },
@@ -123,10 +128,11 @@ const Accounts = {
     //
     showLogin: {
         auth: false,
-        handler: function (request, h)
-        {
-            return h.view('login', {title: 'Login to Apex Gym' +
-                  ' Classes'});
+        handler: function (request, h) {
+            return h.view('login', {
+                title: 'Login to Apex Gym' +
+                    ' Classes'
+            });
         }
     },
 
@@ -151,8 +157,7 @@ const Accounts = {
             options: {
                 abortEarly: false
             },
-            failAction: function (request, h, error)
-            {
+            failAction: function (request, h, error) {
                 return h
                     .view('login', {
                         title: 'Sign in error',
@@ -163,39 +168,45 @@ const Accounts = {
             }
         },
 
-        handler: async function (request, h)
-        {
-            const {email, password} = request.payload;
-            try
-            {
+        handler: async function (request, h) {
+            const {
+                email,
+                password
+            } = request.payload;
+            try {
                 let user = await User.findByEmail(email);
-                if (!user)
-                {
+                if (!user) {
                     const message = 'Email address is not registered';
                     throw Boom.unauthorized(message);
                 }
-                user.comparePassword(password);
 
-                /* Cookies set with user id and scope (either user
+                if (!await user.comparePassword(password)) {
+                    const message = 'Password Mismatch';
+                    throw Boom.unauthorized(message);
+                } else {
+                    /* Cookies set with user id and scope (either user
                 or admin) */
-                request.cookieAuth.set({
-                    id: user.id,
-                    scope: user.scope
+                    request.cookieAuth.set({
+                        id: user.id,
+                        scope: user.scope
+                    });
+
+                    return h.redirect('/home');
+                }
+
+            } catch (err) {
+                return h.view('login', {
+                    errors: [{
+                        message: err.message
+                    }]
                 });
-
-                return h.redirect('/home');
-
-            } catch (err)
-            {
-                return h.view('login', {errors: [{message: err.message}]});
             }
         }
     },
 
     // Controller for logout which deletes any cookies stored
     logout: {
-        handler: function (request, h)
-        {
+        handler: function (request, h) {
             request.cookieAuth.clear();
             return h.redirect('/');
         }
@@ -204,10 +215,8 @@ const Accounts = {
     // shows your settings details
     showSettings: {
 
-        handler: async function (request, h)
-        {
-            try
-            {
+        handler: async function (request, h) {
+            try {
                 const id = request.auth.credentials.id;
                 const user = await User.findById(id).lean();
                 const scope = user.scope;
@@ -218,9 +227,12 @@ const Accounts = {
                     user: user,
                     isadmin: isadmin
                 });
-            } catch (err)
-            {
-                return h.view('login', {errors: [{message: err.message}]});
+            } catch (err) {
+                return h.view('login', {
+                    errors: [{
+                        message: err.message
+                    }]
+                });
             }
         }
     },
@@ -243,8 +255,7 @@ const Accounts = {
             options: {
                 abortEarly: false
             },
-            failAction: function (request, h, error)
-            {
+            failAction: function (request, h, error) {
                 return h
                     .view('settings', {
                         title: 'Sign up error',
@@ -257,10 +268,8 @@ const Accounts = {
 
         /* retrieve all the data from the payload and assin it to
         the correct field in the database */
-        handler: async function (request, h)
-        {
-            try
-            {
+        handler: async function (request, h) {
+            try {
                 const userEdit = request.payload;
                 const id = request.auth.credentials.id;
                 const user = await User.findById(id);
@@ -270,13 +279,17 @@ const Accounts = {
                 user.telephone = userEdit.telephone;
                 user.email = userEdit.email;
                 user.medical = userEdit.medical;
-                user.password = userEdit.password;
+                const hash = await bcrypt.hash(userEdit.password, saltRounds);
+                user.password = hash;
                 await user.save();
                 return h.redirect('/settings');
 
-            } catch (err)
-            {
-                return h.view('main', {errors: [{message: err.message}]});
+            } catch (err) {
+                return h.view('main', {
+                    errors: [{
+                        message: err.message
+                    }]
+                });
 
             }
         }
