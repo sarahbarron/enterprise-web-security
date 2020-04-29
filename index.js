@@ -1,5 +1,8 @@
 'use strict';
 
+const os = require('os');
+os.tmpDir = os.tmpdir;
+
 // Only need for local development
 const dotenv = require('dotenv')
 
@@ -15,6 +18,7 @@ const server = Hapi.server({
         cert: fs.readFileSync('keys/webserver.crt')
     }
 });
+
 
 // db.js creates a connection to the mongo database
 require('./app/models/db');
@@ -34,6 +38,7 @@ async function init() {
     await server.register(require('@hapi/inert'));
     await server.register(require('@hapi/vision'));
     await server.register(require('@hapi/cookie'));
+    await server.register(require('@hapi/bell'));
 
 
     // setup the paths to views, layouts and partials &
@@ -52,16 +57,27 @@ async function init() {
 
 
     // Initialize the cookie plugin
-    server.auth.strategy('session', 'cookie', {
+    server.auth.strategy('cookie-auth', 'cookie', {
         cookie: {
-            name: 'cookie',
+            name: 'gym_auth',
             password: process.env.COOKIE_PASSWORD,
             isSecure: false
-        }
+        },
+        redirectTo: '/login',
     });
 
+
+    var bellAuthOptions = {
+        provider: 'github',
+        password: process.env.BELL_AUTH_PASSWORD,
+        clientId: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
+        isSecure: false
+    }
     // Set up the session as the default strategy for all routes
-    server.auth.default('session');
+    server.auth.strategy('github-oauth', 'bell', bellAuthOptions);
+    server.auth.default('cookie-auth');
+
 
     // Initialize routes
     server.route(require('./routes'));

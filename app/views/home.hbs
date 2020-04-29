@@ -1,9 +1,7 @@
 <!-- Home page for an authenticated user with a list of pois and a form to add a poi-->
 {{> mainmenu _id="home"}}
-
 <section class="ui raised segment">
     <div class="ui very padded grid">
-        <h2>Welcome {{{user.firstName}}} You have been AUTHENTICATED</h2>
+        <h2>Welcome {{displayName}} <br> You have been authenticated using Oauth</h2>
     </div>
-
 </section>

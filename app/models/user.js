@@ -9,13 +9,13 @@ const Schema = Mongoose.Schema;
 const Boom = require('@hapi/boom');
 const bcrypt = require('bcrypt')
 const userSchema = new Schema({
+    gitHubUsername: String,
+    email: String,
     firstName: String,
     lastName: String,
     address: String,
     telephone: Number,
-    email: String,
     medical: String,
-    password: String,
     scope: Array
 });
 
@@ -23,6 +23,14 @@ const userSchema = new Schema({
 userSchema.statics.findByEmail = function (email) {
     return this.findOne({
         email: email
+    });
+};
+
+
+// Check if the username address exists during authentication
+userSchema.statics.findByGitHubUsername = function (gitHubUsername) {
+    return this.findOne({
+        gitHubUsername: gitHubUsername
     });
 };
 

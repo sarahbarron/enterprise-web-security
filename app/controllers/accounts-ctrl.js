@@ -3,8 +3,6 @@ const User = require('../models/user');
 const Boom = require('@hapi/boom');
 const Joi = require('@hapi/joi');
 const Utils = require('../utils/isAdmin');
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
 
 /*
 Accounts Controller contains controllers for signup, login,
@@ -14,25 +12,38 @@ const Accounts = {
 
     // First welcome page controller
     index: {
-        auth: false,
+        auth: {
+            mode: 'optional'
+        },
         handler: function (request, h) {
+            let message;
+            if (request.auth.isAuthenticated) {
+                message = ('Hello ' + request.auth.credentials.profile.displayName);
+            } else {
+                message = 'Hello Stranger'
+            }
             return h.view('main', {
-                title: 'Welcome to Apex Gym'
+                title: 'Welcome to Apex Gym',
+                message: message
             });
         }
     },
 
-    // home page after authentication
+    // Users dashboard
     home: {
+        auth: 'cookie-auth',
         handler: async function (request, h) {
             const id = request.auth.credentials.id;
+            const displayName = request.auth.credentials.profile.displayName;
             const user = await User.findById(id).lean();
             return h.view('home', {
                 user: user,
-                title: 'Apex Gym Authenticated'
+                title: 'Apex Gym Authenticated',
+                displayName: displayName
             });
         }
     },
+
 
     // Controller to view the signup page
     showSignup: {
@@ -47,9 +58,10 @@ const Accounts = {
     },
 
     /* Controller when a users clicks submit on the signup page
-    Fields are validated and if everything is ok the user is
-    registered and logged in if not they are diverted back to the
-    signup page with errors reported */
+        Fields are validated and if everything is ok the user is
+        registered and redirected to log in via Oauth authentication 
+        if not they are diverted back to the
+        signup page with errors reported */
 
     signup: {
         auth: false,
@@ -57,6 +69,7 @@ const Accounts = {
         // Joi Validation of fields
         validate: {
             payload: {
+                gitHubUsername: Joi.string().required(),
                 firstName: Joi.string().required(),
                 lastName: Joi.string().required(),
                 address: Joi.string().required(),
@@ -64,8 +77,8 @@ const Accounts = {
                 email: Joi.string()
                     .email()
                     .required(),
-                medical: Joi.string().required(),
-                password: Joi.string().required(),
+                medical: Joi.string(),
+
             },
             options: {
                 abortEarly: false
@@ -84,36 +97,28 @@ const Accounts = {
         handler: async function (request, h) {
             try {
                 const payload = request.payload;
-                let user = await User.findByEmail(payload.email);
-
-                if (user) {
-                    const message = 'Email address is already registered';
+                let userEmail = await User.findByEmail(payload.email);
+                let userName = await User.findByGitHubUsername(payload.gitHubUsername);
+                if (userEmail || userName) {
+                    const message = 'Someone with this username or email address is already registered';
                     throw Boom.badData(message);
                 }
 
-                const hash = await bcrypt.hash(payload.password, saltRounds);
-
                 const newUser = new User({
+                    gitHubUsername: payload.gitHubUsername,
+                    email: payload.email,
                     firstName: payload.firstName,
                     lastName: payload.lastName,
                     address: payload.address,
                     telephone: payload.telephone,
                     email: payload.email,
                     medical: payload.medical,
-                    password: hash,
                     scope: ['user']
                 });
 
                 user = await newUser.save();
 
-                /* Cookie with user id and scope created (scope is
-                 either admin or user */
-                request.cookieAuth.set({
-                    id: user.id,
-                    scope: user.scope
-                });
-
-                return h.redirect('/home');
+                return h.redirect('/login');
 
             } catch (err) {
                 return h.view('signup', {
@@ -125,84 +130,34 @@ const Accounts = {
         }
     },
 
-    //
-    showLogin: {
-        auth: false,
-        handler: function (request, h) {
-            return h.view('login', {
-                title: 'Login to Apex Gym' +
-                    ' Classes'
-            });
-        }
-    },
 
-    /* Controller for when a user hits submit to login
-    If successful the user is redirected to the home page. If not
-     they are redirected to the login page with errors
-     */
-
+    // Login using Oauth
     login: {
-
-        auth: false,
-
-        /* Joi validation of fields I any errors they are return
-        for the user to view */
-        validate: {
-            payload: {
-                email: Joi.string()
-                    .email()
-                    .required(),
-                password: Joi.string().required()
-            },
-            options: {
-                abortEarly: false
-            },
-            failAction: function (request, h, error) {
-                return h
-                    .view('login', {
-                        title: 'Sign in error',
-                        errors: error.details
-                    })
-                    .takeover()
-                    .code(400);
-            }
-        },
-
+        auth: 'github-oauth',
         handler: async function (request, h) {
-            const {
-                email,
-                password
-            } = request.payload;
-            try {
-                let user = await User.findByEmail(email);
-                if (!user) {
-                    const message = 'Email address is not registered';
-                    throw Boom.unauthorized(message);
+            if (request.auth.isAuthenticated) {
+                // Return github username and email
+                const username = request.auth.credentials.profile.username;
+                const email = request.auth.credentials.profile.email;
+
+                // check to see if the username or the email address is stored in the db
+                let findEmail = await User.findByEmail(email);
+                let findUsername = await User.findByGitHubUsername(username);
+
+                // If the github email address is private it will return null therefore I
+                // do a double check for either the username or email, if both are not in the
+                // database redirect the user to the signup page
+                if ((!findEmail) && (!findUsername)) {
+                    return h.redirect('signup');
+
                 }
-
-                if (!await user.comparePassword(password)) {
-                    const message = 'Password Mismatch';
-                    throw Boom.unauthorized(message);
-                } else {
-                    /* Cookies set with user id and scope (either user
-                or admin) */
-                    request.cookieAuth.set({
-                        id: user.id,
-                        scope: user.scope
-                    });
-
-                    return h.redirect('/home');
-                }
-
-            } catch (err) {
-                return h.view('login', {
-                    errors: [{
-                        message: err.message
-                    }]
-                });
+                request.cookieAuth.set(request.auth.credentials);
+                return h.redirect('/home');
             }
+            return h.redirect('login');
         }
     },
+
 
     // Controller for logout which deletes any cookies stored
     logout: {
@@ -212,88 +167,6 @@ const Accounts = {
         }
     },
 
-    // shows your settings details
-    showSettings: {
-
-        handler: async function (request, h) {
-            try {
-                const id = request.auth.credentials.id;
-                const user = await User.findById(id).lean();
-                const scope = user.scope;
-                const isadmin = Utils.isAdmin(scope);
-
-                return h.view('settings', {
-                    title: 'Client Settings',
-                    user: user,
-                    isadmin: isadmin
-                });
-            } catch (err) {
-                return h.view('login', {
-                    errors: [{
-                        message: err.message
-                    }]
-                });
-            }
-        }
-    },
-
-    // Controller for when a user updates their settings
-    updateSettings: {
-        // Joi validation of the fields returns boom error if it fails
-        validate: {
-            payload: {
-                firstName: Joi.string().required(),
-                lastName: Joi.string().required(),
-                address: Joi.string().required(),
-                telephone: Joi.string().required(),
-                email: Joi.string()
-                    .email()
-                    .required(),
-                medical: Joi.string().required(),
-                password: Joi.string().required()
-            },
-            options: {
-                abortEarly: false
-            },
-            failAction: function (request, h, error) {
-                return h
-                    .view('settings', {
-                        title: 'Sign up error',
-                        errors: error.details
-                    })
-                    .takeover()
-                    .code(400);
-            }
-        },
-
-        /* retrieve all the data from the payload and assin it to
-        the correct field in the database */
-        handler: async function (request, h) {
-            try {
-                const userEdit = request.payload;
-                const id = request.auth.credentials.id;
-                const user = await User.findById(id);
-                user.firstName = userEdit.firstName;
-                user.lastName = userEdit.lastName;
-                user.address = userEdit.address;
-                user.telephone = userEdit.telephone;
-                user.email = userEdit.email;
-                user.medical = userEdit.medical;
-                const hash = await bcrypt.hash(userEdit.password, saltRounds);
-                user.password = hash;
-                await user.save();
-                return h.redirect('/settings');
-
-            } catch (err) {
-                return h.view('main', {
-                    errors: [{
-                        message: err.message
-                    }]
-                });
-
-            }
-        }
-    },
 };
 
 module.exports = Accounts;
