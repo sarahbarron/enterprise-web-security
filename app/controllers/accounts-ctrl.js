@@ -78,7 +78,6 @@ const Accounts = {
                     .email()
                     .required(),
                 medical: Joi.string(),
-
             },
             options: {
                 abortEarly: false
