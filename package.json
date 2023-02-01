@@ -23,7 +23,7 @@
     "github-oauth": "^0.2.2",
     "handlebars": "^4.7.3",
     "mais-mongoose-seeder": "^1.0.7",
-    "mongoose": "^5.9.2",
+    "mongoose": "^5.13.15",
     "util": "^0.12.2"
   },
   "engines": {
